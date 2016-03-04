@@ -55,6 +55,18 @@ function createChannel () {
   }
 
   function replyToClient (clientId) {
-    return self.clients.match(e.clientId).then(replyTo);
+        var payload = serialization.parsePayload(atoa(arguments, 1));
+    return self.clients.matchAll().then(function(clients) {
+      var wasClientFound = false;
+      clients.forEach(function(client) {
+        if (client.id === clientId) {
+          wasClientFound = true;
+          return client.postMessage(payload);
+        }
+      });
+      if (!wasClientFound) {
+        return Promise.reject('Could not find service worker client with ID ' + clientId + ' to reply to.');
+      }
+    });
   }
 }
