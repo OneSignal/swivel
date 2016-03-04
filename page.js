@@ -45,8 +45,12 @@ function createChannel () {
         return; // ignore broadcast messages from other workers than the one we're talking to.
       }
       var data = e.data;
-      if (data && data.__broadcast) {
-        serialization.emission(internalEmitter, { broadcast: true })(e);
+      if (data) {
+        if (data.__broadcast) {
+          serialization.emission(internalEmitter, {broadcast: true})(e);
+        } else {
+          serialization.emission(internalEmitter, {broadcast: false})(e);
+        }
       }
     }
   }
