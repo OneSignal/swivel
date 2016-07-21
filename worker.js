@@ -36,7 +36,7 @@ function createChannel () {
 
   function broadcastToPages (type) {
     var payload = atoa(arguments, 1);
-    return self.clients.matchAll().then(gotClients);
+    return self.clients.matchAll({includeUncontrolled: true}).then(gotClients);
     function gotClients (clients) {
       return clients.map(emitToClient);
     }
@@ -56,7 +56,7 @@ function createChannel () {
 
   function replyToClient (clientId) {
         var payload = serialization.parsePayload(atoa(arguments, 1));
-    return self.clients.matchAll().then(function(clients) {
+    return self.clients.matchAll({includeUncontrolled: true}).then(function(clients) {
       var wasClientFound = false;
       clients.forEach(function(client) {
         if (client.id === clientId) {
