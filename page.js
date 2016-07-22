@@ -41,9 +41,6 @@ function createChannel () {
     }
 
     function broadcastHandler (e) {
-      if (e.source !== worker) {
-        return; // ignore broadcast messages from other workers than the one we're talking to.
-      }
       var data = e.data;
       if (data) {
         if (data.__broadcast) {
