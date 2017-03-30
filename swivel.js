@@ -1,8 +1,6 @@
 'use strict';
 
-function complain() {
-  throw new Error('Swivel couldn\'t detect ServiceWorker support. Please feature detect before using Swivel in your web pages!');
-}
+function complain() { }
 
 var api = {
   on: complain,
